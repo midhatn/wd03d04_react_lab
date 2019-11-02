@@ -1,20 +1,56 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
-import FilmListing from "./FilmListing"
-import FilmDetails from "./FilmDetails"
-import TMDB from "./TMDB"
-import FilmRow from "./FilmRow"
-import Fave from "./Fave"
+import FilmDetails from './FilmDetails.js';
+import FilmListing from './FilmListing.js';
+import TMDB from './TMDB.js';
+
+export default class App extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      films: TMDB.films,
+      faves: [],
+      current: {}
+  
+    }
+    this.handleFaveToggle = this.handleFaveToggle.bind(this)
+
+  }
+  handleDetailsClick=(film)=>{
+console.log(this.state.current)
+  }
+
+  
+
+  handleFaveToggle=(film)=>{
+    const faves =this.state.faves.slice(0)
+    const filmIndex=faves.indexOf(film)
+
+    if(filmIndex===-1){
+      faves.push(film)
+    }else{
+      faves.splice(filmIndex,1)
+      
+    }
+    this.setState({
+      
+      faves: faves
+    })
+
+    
+  }
+
+  render() {
 
 
-function App() {
-  return (
-    <div className="film-library">
-      <FilmListing films={TMDB.films} />
-      <FilmDetails films={TMDB.films} />
-    </div>
-  );
+    return (
+      <div className="App" >
+        <div className="film-library">
+          <FilmListing films={this.state.films} faves={this.state.faves} onFaveToggle={this.handleFaveToggle} />
+          <FilmDetails film={this.state.current} />
+        </div>
+      </div>
+    );
+  }
 }
 
-export default App;
