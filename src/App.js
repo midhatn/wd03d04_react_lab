@@ -11,12 +11,9 @@ import Fave from "./Fave"
 function App() {
   return (
     <div className="film-library">
-  <FilmListing films={TMDB.films} />
-  
-  <FilmDetails films={TMDB.films}/>
-
- 
-</div>
+      <FilmListing films={TMDB.films} />
+      <FilmDetails films={TMDB.films} />
+    </div>
   );
 }
 
